@@ -98,11 +98,11 @@ app.get('/s/nowplaying.png', async (req, res) => {
   <rect x="30" y="30" width="1140" height="200" rx="24" fill="${pillColor}" />
   ${imageSvg}
 
-  <g transform="translate(270,90)">
-    <text x="0" y="0" dominant-baseline="hanging" font-family="Arial, sans-serif" font-size="34" fill="${textColor}" font-weight="700">${escapeSvg(title)}</text>
-    <text x="0" y="46" dominant-baseline="hanging" font-family="Arial, sans-serif" font-size="20" fill="${subTextColor}">${escapeSvg(artist)}</text>
-    <text x="0" y="74" dominant-baseline="hanging" font-family="Arial, sans-serif" font-size="16" fill="${subTextColor}">${album ? escapeSvg(album) : 'Last.fm'}</text>
-    <text x="0" y="102" dominant-baseline="hanging" font-family="Arial, sans-serif" font-size="14" fill="${subTextColor}">${now?.nowPlaying ? '▶ Now Playing' : 'Last Played'}</text>
+  <g transform="translate(270,50)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="34" fill="${textColor}" font-weight="700">${escapeSvg(title)}</text>
+    <text x="0" y="42" font-family="Arial, sans-serif" font-size="20" fill="${subTextColor}">${escapeSvg(artist)}</text>
+    <text x="0" y="68" font-family="Arial, sans-serif" font-size="16" fill="${subTextColor}">${album ? escapeSvg(album) : 'Last.fm'}</text>
+    <text x="0" y="94" font-family="Arial, sans-serif" font-size="14" fill="${subTextColor}">${now?.nowPlaying ? '▶ Now Playing' : 'Last Played'}</text>
   </g>
 </svg>`;
     const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render();
