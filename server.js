@@ -203,51 +203,6 @@ app.get('/card/:user', async (req, res) => {
     res.send(svg);
 });
 
-app.get('/s/nowplaying.png', async (req, res) => {
-    const user = DEFAULT_LASTFM_USER;
-    const now = await fetchNowPlaying(user);
-    const title = now?.title || 'Not Playing';
-    const artist = now?.artist || `@${user}`;
-    const imageUrl = now?.image || 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96c0b9f0f84df0a3f0f3b1c9a6c3d4.png';
-    const progress = now?.nowPlaying ? 0.65 : 0.0;
-    const svg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260" viewBox="0 0 1200 260">
-  <rect width="1200" height="260" rx="24" fill="#040814" />
-  <linearGradient id="bg" x1="0" x2="1">
-    <stop offset="0%" stop-color="#131a29" />
-    <stop offset="100%" stop-color="#070a12" />
-  </linearGradient>
-  <rect x="0" y="0" width="1200" height="260" rx="24" fill="url(#bg)" />
-  <defs>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000" flood-opacity="0.6" />
-    </filter>
-  </defs>
-  <rect x="30" y="30" width="200" height="200" rx="28" fill="#0f172a" filter="url(#shadow)" />
-  <image href="${imageUrl}" x="35" y="35" width="190" height="190" preserveAspectRatio="xMidYMid slice" clip-path="url(#albumClip)" />
-  <clipPath id="albumClip"><rect x="35" y="35" width="190" height="190" rx="24" /></clipPath>
-  <g transform="translate(260,52)">
-    <text x="0" y="0" font-family="Inter, Roboto, Arial, sans-serif" font-size="44" fill="#ffffff" font-weight="700">${escapeSvg(title)}</text>
-    <text x="0" y="54" font-family="Inter, Roboto, Arial, sans-serif" font-size="24" fill="#8b97ad">${escapeSvg(artist)}</text>
-    <rect x="0" y="106" width="820" height="16" rx="8" fill="#17203b" />
-    <rect x="0" y="106" width="${Math.round(820 * progress)}" height="16" rx="8" fill="#67d7ff" />
-    <text x="0" y="158" font-family="Inter, Roboto, Arial, sans-serif" font-size="18" fill="#94a3b8">${now?.nowPlaying ? 'Now Playing' : 'Last Played'}</text>
-    <text x="620" y="158" font-family="Inter, Roboto, Arial, sans-serif" font-size="18" fill="#94a3b8">${now?.nowPlaying ? 'Live' : 'Cached'}</text>
-  </g>
-  <g transform="translate(260,190)">
-    <circle cx="0" cy="0" r="14" fill="#1f2a44" />
-    <path d="M-8 -6 L-8 6 L6 0 Z" fill="#67d7ff" />
-    <circle cx="60" cy="0" r="4" fill="#67d7ff" />
-    <circle cx="100" cy="0" r="4" fill="#67d7ff" />
-    <circle cx="140" cy="0" r="4" fill="#67d7ff" />
-  </g>
-</svg>`;
-
-    const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render();
-    res.setHeader('Content-Type', 'image/png');
-    res.send(Buffer.from(png.asPng()));
-});
-
 app.use(express.static('public'));
 
 app.listen(PORT, () => {
