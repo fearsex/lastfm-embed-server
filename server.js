@@ -2,7 +2,7 @@ const express = require('express');
 const { Resvg } = require('@resvg/resvg-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const LASTFM_API_KEY = process.env.LASTFM_API_KEY || '';
+const LASTFM_API_KEY = "9c4d7efbc599f2d73e626e5908ff49e4";
 const DEFAULT_LASTFM_USER = process.env.LASTFM_USER || 'sare-eras';
 
 function absoluteUrl(req, path) {
