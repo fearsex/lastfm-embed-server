@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: auto;
+        }
+
+        body {
+            background: #fff;
+            color: #000;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ══ SECTION 1 — TYPEWRITER ══ */
+        #typewriter-section {
+            height: 300vh;
+            position: relative;
+        }
+
+        .typewriter-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .typewriter-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 6vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            text-align: center;
+            max-width: 860px;
+            padding: 0 2rem;
+            color: #000;
+            min-height: 2.4em;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 3px;
+            height: .85em;
+            background: #000;
+            margin-left: 3px;
+            vertical-align: middle;
+            animation: blink .75s step-end infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            color: #aaa;
+            font-size: .65rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+        }
+
+        .scroll-hint .line {
+            width: 1px;
+            height: 36px;
+            background: #ccc;
+            animation: lineDown 1.6s ease-in-out infinite;
+        }
+
+        @keyframes lineDown {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top;
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top;
+            }
+
+            51% {
+                transform-origin: bottom;
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom;
+            }
+        }
+
+        /* ══ SECTION 2 — STACKED CARDS ══ */
+        #cards-section {
+            height: 500vh;
+            position: relative;
+        }
+
+        .cards-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .cards-label {
+            font-size: .6rem;
+            letter-spacing: .4em;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 3.5rem;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* the stack container — cards fan out from here */
+        .cards-stack {
+            position: relative;
+            width: 320px;
+            height: 420px;
+            /* cards fan outward from bottom-center origin */
+        }
+
+        .stack-card {
+            position: absolute;
+            width: 280px;
+            height: 380px;
+            border-radius: 18px;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+            padding: 2rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            will-change: transform;
+            /* all cards start stacked at center */
+            top: 50%;
+            left: 50%;
+            margin-top: -190px;
+            margin-left: -140px;
+            transform-origin: center bottom;
+        }
+
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: #aaa;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.2;
+            margin-bottom: .6rem;
+        }
+
+        .card-desc {
+            font-size: .78rem;
+            color: #888;
+            line-height: 1.65;
+            font-weight: 300;
+            flex: 1;
+            margin-top: .4rem;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .card-desc img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-number {
+            font-size: .58rem;
+            letter-spacing: .15em;
+            color: #ccc;
+        }
+
+        /* ══ SECTION 3 — CTA ══ */
+        #cta-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .cta-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 4rem);
+            font-weight: 900;
+            color: #000;
+            max-width: 640px;
+            line-height: 1.1;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .85rem 2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .82rem;
+            font-weight: 500;
+            letter-spacing: .06em;
+            transition: background .2s, transform .2s;
+        }
+
+        .cta-btn:hover {
+            background: #222;
+            transform: scale(1.03);
+        }
+
+        .cta-btn svg {
+            transition: transform .2s;
+        }
+
+        .cta-btn:hover svg {
+            transform: translateX(3px);
+        }
+
+        .footer-muted {
+            margin-top: 5rem;
+            font-size: .65rem;
+            color: #ccc;
+            letter-spacing: .1em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SECTION 1: TYPEWRITER -->
+    <section id="typewriter-section">
+        <div class="typewriter-sticky">
+            <h1 class="typewriter-headline">
+                <span id="typed-text"></span><span class="cursor-blink"></span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- SECTION 2: STACKED CARDS -->
+    <section id="cards-section">
+        <div class="cards-sticky">
+            <p class="cards-label">making everyone pay</p>
+            <div class="cards-stack" id="cardsStack">
+                <div class="stack-card" id="card-1">
+                    <div>
+                        <span class="card-tag">him</span>
+                        <div class="card-title">Making<br><b>him</b> pay</div>
+                        <div class="card-desc"><img src="https://www.thispersondoesnotexist.com/" alt=""></div>
+                    </div>
+                </div>
+                <div class="stack-card" id="card-2">
+                    <div>
+                        <span class="card-tag">her</span>
+                        <div class="card-title">Making<br><b>her</b> pay</div>
+                        <div class="card-desc"><img src="https://www.thispersondoesnotexist.com/#her" alt=""></div>
+                    </div>
+                </div>
+                <div class="stack-card" id="card-3">
+                    <div>
+                        <span class="card-tag">them</span>
+                        <div class="card-title">Making<br><b>them</b> pay</div>
+                        <div class="card-desc"><img src="https://www.thispersondoesnotexist.com/#them" alt=""></div>
+                    </div>
+                </div>
+                <div class="stack-card" id="card-4">
+                    <div>
+                        <span class="card-tag">xem</span>
+                        <div class="card-title">Making<br><b>xem</b> pay</div>
+                        <div class="card-desc"><img src="https://www.thispersondoesnotexist.com/#xem" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CTA -->
+    <section id="cta-section">
+        <h2 class="cta-heading">she will make you pay</h2>
+        <button class="cta-btn">
+            Start Your Journey
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M8 2l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+        <p class="footer-muted">© 2026 conspiracy51. All rights reserved.</p>
+    </section>
+
+    <script>
+        /* ── TYPEWRITER ── */
+        const PHRASE = "she will make you pay";
+        const typedEl = document.getElementById('typed-text');
+        const twSec = document.getElementById('typewriter-section');
+
+        function updateTypewriter() {
+            const rect = twSec.getBoundingClientRect();
+            const scrollH = twSec.offsetHeight - window.innerHeight;
+            const p = Math.max(0, Math.min(1, -rect.top / scrollH));
+            typedEl.textContent = PHRASE.slice(0, Math.round(p * PHRASE.length));
+        }
+
+        /* ── CARDS — fan out like a deck ──
+           Each card fans to a unique (translateX, translateY, rotate) target.
+           The fan spreads left-to-right with a slight upward arc on the ends,
+           like holding cards in your hand viewed from slightly above.
+           Card 1 = far left, tilted CCW
+           Card 4 = far right, tilted CW
+           All four also drift slightly upward as they spread (the arc).
+        */
+        const cardsSec = document.getElementById('cards-section');
+        const cards = ['card-1', 'card-2', 'card-3', 'card-4'].map(id => document.getElementById(id));
+
+        // resting stacked state: slight peek offsets so you can see the deck depth
+        const restX = [0, 3, 6, 9];   // px horizontal peek
+        const restY = [0, 3, 6, 9];   // px vertical peek downward
+        const restRot = [0, 0.6, 1.2, 1.8]; // tiny rotation hint
+
+        // fully fanned state — left to right diagonal arc
+        // fan spreads ~560px total across 4 cards, arc dips cards at extremes down
+        const fanX = [-280, -90, 100, 290];  // translateX from center
+        const fanY = [40, -20, -20, 40];  // Y: edges go down, center goes up = arc
+        const fanRot = [-22, -7, 7, 22];   // rotation in degrees
+
+        function easeInOutCubic(t) {
+            return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function updateCards() {
+            const rect = cardsSec.getBoundingClientRect();
+            const scrollH = cardsSec.offsetHeight - window.innerHeight;
+            const progress = Math.max(0, Math.min(1, -rect.top / scrollH));
+
+            cards.forEach((card, i) => {
+                // stagger each card slightly so they peel off one by one
+                const start = i * 0.08;
+                const end = start + 0.55;
+                const local = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+                const ease = easeInOutCubic(local);
+
+                const tx = restX[i] + (fanX[i] - restX[i]) * ease;
+                const ty = restY[i] + (fanY[i] - restY[i]) * ease;
+                const rot = restRot[i] + (fanRot[i] - restRot[i]) * ease;
+
+                // cards in the middle sit on top when fanned (natural hand-of-cards look)
+                // z: stacked=4,3,2,1 → fanned: middle cards on top
+                const fanZ = [1, 3, 4, 2];
+                const stackZ = [4, 3, 2, 1];
+                card.style.zIndex = ease > .5 ? fanZ[i] : stackZ[i];
+                card.style.transform = `translateX(${tx}px) translateY(${ty}px) rotate(${rot}deg)`;
+                card.style.boxShadow = ease > .01
+                    ? `0 ${8 + 12 * ease}px ${20 + 30 * ease}px rgba(0,0,0,${0.06 + 0.07 * ease})`
+                    : 'none';
+                // fade cards in from slightly transparent when stacked
+                card.style.opacity = 0.7 + 0.3 * ease;
+            });
+        }
+
+        window.addEventListener('scroll', () => { updateTypewriter(); updateCards(); }, { passive: true });
+        updateTypewriter();
+        updateCards();
+    </script>
+</body>
+
+</html>

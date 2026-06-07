@@ -1,0 +1,12 @@
+{
+  "name": "lastfm-embed-server",
+  "version": "1.0.0",
+  "description": "Serve Last.fm now-playing OpenGraph pages and SVG cards for rich embeds",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
