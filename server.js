@@ -98,11 +98,11 @@ app.get('/s/nowplaying.png', async (req, res) => {
   <rect x="30" y="30" width="1140" height="200" rx="24" fill="${pillColor}" />
   ${imageSvg}
 
-  <g transform="translate(270,50)">
-    <text x="0" y="0" font-family="Arial, sans-serif" font-size="34" fill="${textColor}" font-weight="700">${escapeSvg(title)}</text>
-    <text x="0" y="42" font-family="Arial, sans-serif" font-size="20" fill="${subTextColor}">${escapeSvg(artist)}</text>
-    <text x="0" y="68" font-family="Arial, sans-serif" font-size="16" fill="${subTextColor}">${album ? escapeSvg(album) : 'Last.fm'}</text>
-    <text x="0" y="94" font-family="Arial, sans-serif" font-size="14" fill="${subTextColor}">${now?.nowPlaying ? '▶ Now Playing' : 'Last Played'}</text>
+  <g transform="translate(270,90)">
+    <text x="0" y="0" alignment-baseline="hanging" font-family="Arial, sans-serif" font-size="34" fill="${textColor}" font-weight="700">${escapeSvg(title)}</text>
+    <text x="0" y="42" alignment-baseline="hanging" font-family="Arial, sans-serif" font-size="20" fill="${subTextColor}">${escapeSvg(artist)}</text>
+    <text x="0" y="72" alignment-baseline="hanging" font-family="Arial, sans-serif" font-size="16" fill="${subTextColor}">${album ? escapeSvg(album) : 'Last.fm'}</text>
+    <text x="0" y="100" alignment-baseline="hanging" font-family="Arial, sans-serif" font-size="14" fill="${subTextColor}">${now?.nowPlaying ? '▶ Now Playing' : 'Last Played'}</text>
   </g>
 </svg>`;
     const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render();
@@ -178,7 +178,7 @@ app.get('/card/:user', async (req, res) => {
 
   <image href="${imageUrl}" x="64" y="64" width="500" height="500" preserveAspectRatio="xMidYMid slice" style="filter:url(#f)" />
 
-  <g transform="translate(600,140)">
+  <g transform="translate(600,540)">
     <rect x="-40" y="-40" width="640" height="360" rx="18" fill="rgba(255,255,255,0.02)" />
     <text x="0" y="0" font-family="Inter, Roboto, Arial, sans-serif" font-size="40" fill="#ffffff" font-weight="700">${escapeSvg(title)}</text>
     <text x="0" y="62" font-family="Inter, Roboto, Arial, sans-serif" font-size="28" fill="#94a3b8">${escapeSvg(artist)}</text>
